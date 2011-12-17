@@ -1,7 +1,13 @@
 {{$NEXT}}
+
+* false Prereq removed
+
+0.004     2011-12-17 21:12:04 Europe/Berlin
+
 * right distname established
 
 0.003     2011-12-17 20:59:18 Europe/Berlin
+
 * wrong distname deprecation
 
 0.002     2011-12-17 20:52:03 Europe/Berlin
