@@ -1,0 +1,10 @@
+{{$NEXT}}
+* right distname established
+
+0.003     2011-12-17 20:59:18 Europe/Berlin
+* wrong distname deprecation
+
+0.002     2011-12-17 20:52:03 Europe/Berlin
+
+* initial Implementation
+* tests
