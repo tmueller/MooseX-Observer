@@ -71,6 +71,6 @@ my $parent = TestParent->new();
 $parent->add_observer( TestObserver->new() );
 $parent->test_parent(2);
 
-# 3 Test till here
+# 3 Tests till here
 $child->test_parent_from_child(5); 
 $child->test_parent_from_child; 

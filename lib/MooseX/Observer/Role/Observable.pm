@@ -1,4 +1,5 @@
 package MooseX::Observer::Role::Observable;
+# ABSTRACT: Sorry wrong distname, this will be gone on tuesday. Search for MooseX::Observer instead.
 
 use MooseX::Role::Parameterized;
 use Moose::Util::TypeConstraints;
@@ -67,3 +68,99 @@ role {
 };
  
 1;
+
+=pod
+
+=head1 SYNOPSIS
+
+    ############################################################################
+    package Counter;
+
+    use Moose;
+
+    has count => (
+        traits  => ['Counter'],
+        is      => 'rw',
+        isa     => 'Int',
+        default => 0,
+        handles => {
+            inc_counter => 'inc',
+            dec_counter => 'dec',
+        },
+    );
+
+    # apply the observable-role and
+    # provide methodnames, after which the observers are notified of changes
+    with 'MooseX::Observer::Role::Observable' => { notify_after => [qw~
+        count
+        inc_counter
+        dec_counter
+        reset_counter
+    ~] };
+
+    sub reset_counter { shift->count(0) }
+
+    sub _utility_method { ... }
+
+    ############################################################################
+    package Display;
+
+    use Moose;
+
+    # apply the oberserver-role, tagging the class as observer and ...
+    with 'MooseX::Observer::Role::Observer';
+
+    # ... require an update-method to be implemented
+    # this is called after the observed subject calls an observed method
+    sub update {
+        my ( $self, $subject, $args, $eventname ) = @_;
+        print $subject->count;
+    }
+
+    ############################################################################
+    package main;
+
+    my $counter = Counter->new();
+    # add an observer of type "Display" to our observable counter
+    $counter->add_observer( Display->new() );
+
+    # increments the counter to 1, afterwards its observers are notified of changes
+    # Display is notified of a change, its update-method is called 
+    $counter->inc_counter;  # Display prints 1
+    $counter->dec_counter;  # Display prints 0
+
+
+=head1 DESCRIPTION
+
+This is a parameterized role, that is applied to your observed class. Usually
+when applying this role, you provide a list of methodnames. After method
+modifiers are installed for these methods. They call the _notify-method, which
+in turn calls the update-method of all observers.
+
+=method add_observer($observer)
+
+Adds an observer to the object. This Observer must do the
+MooseX::Observer::Role::Observer role.
+
+=method count_observers
+
+Returns how many observers are attached to the object.
+
+=method all_observers
+
+Returns a list of all observers attached to the object.
+
+=method remove_observer($observer)
+
+Remove the given observer from the object.
+
+=method remove_all_observers
+
+Removes all observers from the object.
+
+=method _notify($args, $eventname)
+
+This private method notifies all observers, passing $self, $args and an
+$eventname to the observers' update method.
+
+=cut
