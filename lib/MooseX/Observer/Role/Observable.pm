@@ -1,5 +1,5 @@
 package MooseX::Observer::Role::Observable;
-# ABSTRACT: Sorry wrong distname, this will be gone on tuesday. Search for MooseX::Observer instead.
+# ABSTRACT: Adds methods an logic to a class, enabling instances changes to be observed
 
 use MooseX::Role::Parameterized;
 use Moose::Util::TypeConstraints;
