@@ -1,5 +1,13 @@
 {{$NEXT}}
 
+* another false Prereq removed :\
+
+0.006     2011-12-17 21:39:15 Europe/Berlin
+
+* just testing whether Dist::Zilla::Plugin::Twitter works
+
+0.005     2011-12-17 21:30:35 Europe/Berlin
+
 * false Prereq removed
 
 0.004     2011-12-17 21:12:04 Europe/Berlin
