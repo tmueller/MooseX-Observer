@@ -38,20 +38,31 @@ role {
     );
 
     for my $methodname (@{ $notifications_after }) {
-        if ($consumer->find_attribute_by_name($methodname)) {
+        if ( $consumer->isa('Class::MOP::Class') ) {
+            if ($consumer->find_attribute_by_name($methodname)) {
             
-            after $methodname => sub {
-                my $self = shift;
-                $self->_notify(\@_, $methodname) if (@_);
-            };
+                after $methodname => sub {
+                    my $self = shift;
+                    $self->_notify(\@_, $methodname) if (@_);
+                };
             
-        } else {
+            } else {
+
+                after $methodname => sub {
+                    my $self = shift;
+                    $self->_notify(\@_, $methodname);
+                };
             
-            after $methodname => sub {
-                my $self = shift;
-                $self->_notify(\@_, $methodname);
-            };
-            
+            }
+        }
+        elsif ( $consumer->isa('Moose::Meta::Role') ) {
+            $consumer->add_after_method_modifier(
+                $methodname,
+                sub {
+                    my $self = shift;
+                    $self->_notify( \@_, $methodname );
+                }
+            );
         }
     }
     
