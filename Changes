@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+* Removed Dist::Zilla::Plugin::AutoPrereqs because of false positives
+
+0.008     2012-07-14 00:20:40 Europe/Berlin
+
 * allow application of MooseX::Observer::Role::Observable to a role
 * big thanks to xenoterracide, who did the implementation, along with tests
 
