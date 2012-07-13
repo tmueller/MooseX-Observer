@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+* allow application of MooseX::Observer::Role::Observable to a role
+* big thanks to xenoterracide, who did the implementation, along with tests
+
+0.007     2012-03-12 21:43:34 Europe/Berlin
+
 * another false Prereq removed :\
 
 0.006     2011-12-17 21:39:15 Europe/Berlin
